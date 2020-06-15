@@ -81,45 +81,23 @@
                 </thead>
                 <tbody>
                     <?php
-                        if($_GET):
-                            $data = $_GET['search'];
-                            $obj = new Crud();
-                            $entries = $obj->search_this($data);
-                            $index = 1;
-                            if(!empty($entries)):
-                                foreach($entries as $row):
+                        $obj = new Crud();
+                        $entries = (($_GET)?$obj->search_this($_GET['search']):$obj->select());
+                        $index = 1;
+                        if(!empty($entries)):
+                            foreach($entries as $row):
                     ?>
-                                    <tr>
-                                        <td style="display:none"><?=$row["id"]?></td>
-                                        <td><?=$index?></td>
-                                        <td><?=$row['first_name']?></td>
-                                        <td><?=$row['last_name']?></td>
-                                        <td><?=$row['age']?></td>
-                                        <td><button class="btn btn-ouline-success btn-sm edt-btn text-white"><i class="fas fa-pencil-alt"></i></button>&nbsp;<a href="index.php?delete=<?=$row['id']?>" class="btn btn-outlne-danger text-white"><i class="fas fa-trash-alt"></i></a></td>
-                                    </tr>
+                                <tr>
+                                    <td style="display:none"><?=$row["id"]?></td>
+                                    <td><?=$index?></td>
+                                    <td><?=$row['first_name']?></td>
+                                    <td><?=$row['last_name']?></td>
+                                    <td><?=$row['age']?></td>
+                                    <td><button class="btn btn-ouline-success btn-sm edt-btn text-white"><i class="fas fa-pencil-alt"></i></button>&nbsp;<a href="index.php?delete=<?=$row['id']?>" class="btn btn-outlne-danger text-white"><i class="fas fa-trash-alt"></i></a></td>
+                                </tr>
                     <?php
-                                    $index++;
-                                endforeach;
-                            endif;
-                        else:
-                            $obj = new Crud();
-                            $entries = $obj->select();
-                            $index = 1;
-                            if(!empty($entries)):
-                                foreach($entries as $row):
-                    ?>
-                                    <tr>
-                                        <td style="display:none"><?=$row["id"]?></td>
-                                        <td><?=$index?></td>
-                                        <td><?=$row['first_name']?></td>
-                                        <td><?=$row['last_name']?></td>
-                                        <td><?=$row['age']?></td>
-                                        <td><button class="btn btn-ouline-success btn-sm edt-btn text-white"><i class="fas fa-pencil-alt"></i></button>&nbsp;<a href="index.php?delete=<?=$row['id']?>" class="btn btn-outlne-danger text-white"><i class="fas fa-trash-alt"></i></a></td>
-                                    </tr>
-                    <?php
-                                    $index++;
-                                endforeach;    
-                            endif;
+                                $index++;
+                            endforeach;    
                         endif;    
                     ?>
                 </tbody>
