@@ -71,5 +71,21 @@
                 echo "Deleted Successfully";
             }
         }
+        public function search_this($data){
+            $preg = preg_replace("#[^a-z0-9]#i","",$data);
+            $sql = "SELECT * FROM employee WHERE first_name LIKE '%$preg%' OR last_name LIKE '%$preg%' AND deleted=0";
+            $stmt = $this->connect()->query($sql);
+            if($stmt->rowCount() > 0){
+                while($data = $stmt->fetch()){
+                    $row[] = $data;
+                }
+                return $row;
+            }
+        }
+        public function counter(){
+            $sql = "SELECT * FROM employee";
+            $stmt = $this->connect()->query($sql);
+            echo $stmt->rowCount();
+        }
     }
 ?>
